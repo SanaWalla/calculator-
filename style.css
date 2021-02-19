@@ -37,7 +37,13 @@ body {
     background-color: rgb(213, 211, 211);
     border-color: black;
     border-radius: 8px;
-    
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .zero {
@@ -72,3 +78,7 @@ body {
     transform: scale(0.96); 
 }
 
+.operand{
+    font-size: 35px;
+    padding: 30px;
+}
