@@ -83,6 +83,7 @@ function clearDisplay() {
 
 
 function appendNumber(number) {
+
     displayValue.innerText += number;
 }
 
