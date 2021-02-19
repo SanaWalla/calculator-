@@ -7,6 +7,7 @@ const equals = document.querySelector(['[data-equals]']);
 let firstNum = "";
 let secondNum = "";
 let currentOperation = null;
+let history = "";
 
 
 function add(a, b) {
@@ -26,23 +27,23 @@ function divide(a, b) {
 }
 
 function operate(operator, num1, num2) {
-    num1 = Number(num1);
-    num2 = Number(num2);
+    num1 = Number(num1)
+    num2 = Number(num2)
     switch (operator) {
         case '+':
-            add(num1, num2)
-            break
+            return add(num1, num2);
+            break;
         case '-':
-            subtract(num1, num2)
-            break
-        case '*':
-            multiply(num1, num2)
-            break
+            return subtract(num1, num2);
+            break;
+        case '×':
+            return multiply(num1, num2);
+            break;
         case '÷':
             if (num2 == 0) {
                 return null;
             }
-            divide(num1, num2)
+            return divide(num1, num2);
             break;
         default:
             return
@@ -52,46 +53,52 @@ function operate(operator, num1, num2) {
 number.forEach(button => {
     button.addEventListener('click', function () {
         appendNumber(button.innerHTML);
-
     })
 })
 
 operator.forEach(button => {
     button.addEventListener('click', function () {
         chooseOperation(button.innerHTML);
-
     })
 })
 
 equals.addEventListener('click', function () {
-    compute();
+    calculate();
 
 })
 
-function clearDisplay() {
+clear.addEventListener('click', function () {
+    clearDisplay();
+})
 
+function clearDisplay() {
+    displayValue.innerText = '';
+    firstNum = '';
+    secondNum = '';
+    currentOperation = null;
+}
+
+function clearNum() {
+    displayValue.innerText = "";
 }
 
 function appendNumber(number) {
     displayValue.innerText += number;
 }
 
-function chooseOperation(operation) {
-    if (secondNum !== "") {
-        compute()
+function chooseOperation(operator) {
+    if (currentOperation !== null) {
+        calculate();
     }
     firstNum = displayValue.innerText;
-    currentOperation = operation;
-
-
+    currentOperation = operator;
+    displayValue.innerText = null;
 }
 
-function compute() {
-
+function calculate() {
+    secondNum = displayValue.innerText;
+    result = operate(currentOperation, firstNum, secondNum);
+    displayValue.innerText = result;
 }
-
-// function updateDisplay() {
-//     displayValue.innerText = firstNum;
-// }
 
 
