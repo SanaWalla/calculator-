@@ -3,11 +3,12 @@ const number = document.querySelectorAll('[data-number]');
 const operator = document.querySelectorAll('[data-operator]');
 const clear = document.querySelector('[data-clear]');
 const equals = document.querySelector(['[data-equals]']);
+const previousOperand = document.querySelector(['.previousOperand']);
 
 let firstNum = "";
 let secondNum = "";
 let currentOperation = null;
-let history = "";
+let result = '';
 
 
 function add(a, b) {
@@ -76,29 +77,31 @@ function clearDisplay() {
     firstNum = '';
     secondNum = '';
     currentOperation = null;
+    previousOperand.innerText = '';
+
 }
 
-function clearNum() {
-    displayValue.innerText = "";
-}
 
 function appendNumber(number) {
     displayValue.innerText += number;
 }
 
 function chooseOperation(operator) {
-    if (currentOperation !== null) {
-        calculate();
-    }
+    if (currentOperation !== null) calculate();
     firstNum = displayValue.innerText;
+    previousOperand.innerText = firstNum;
     currentOperation = operator;
+    previousOperand.innerText = `${firstNum} ${currentOperation}`;
+    displayValue.innerText = firstNum;
     displayValue.innerText = null;
 }
 
 function calculate() {
     secondNum = displayValue.innerText;
     result = operate(currentOperation, firstNum, secondNum);
+    previousOperand.innerText = '';
     displayValue.innerText = result;
+    currentOperation = null;
 }
 
 
