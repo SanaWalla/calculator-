@@ -9,7 +9,6 @@ let secondNum = "";
 let currentOperation = null;
 let result = '';
 
-
 function add(a, b) {
     return a + b;
 }
@@ -80,7 +79,6 @@ function clearDisplay() {
 
 
 function appendNumber(number) {
-    if (firstNum !== '') { displayValue.innerText = '' };
     displayValue.innerText += number;
 }
 
@@ -90,13 +88,18 @@ function chooseOperation(operator) {
     }
     firstNum = displayValue.innerText;
     currentOperation = operator;
+    displayValue.innerText = '';
 }
 
 function calculate() {
+
     secondNum = displayValue.innerText;
-    result = operate(currentOperation, firstNum, secondNum);
+    result = roundNum(operate(currentOperation, firstNum, secondNum));
     displayValue.innerText = result;
     currentOperation = null;
 }
 
 
+function roundNum(num) {
+    return Math.round(num * 1000) / 1000
+}
