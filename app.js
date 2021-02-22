@@ -81,6 +81,7 @@ function clearDisplay() {
 
 
 function appendNumber(number) {
+    if (number === '.' && displayValue.innerText.includes('.')) return;
     displayValue.innerText += number;
 }
 
@@ -94,6 +95,11 @@ function chooseOperation(operator) {
     displayValue.innerText = null;
 }
 function calculate() {
+    if (currentOperation === '÷' && displayValue.innerText === '0') {
+        clearDisplay();
+        previousOperand.innerText = 'ERROR';
+        return;
+    }
     secondNum = displayValue.innerText;
     result = roundNum(operate(currentOperation, firstNum, secondNum));
     previousOperand.innerText = '';
@@ -105,3 +111,4 @@ function calculate() {
 function roundNum(num) {
     return Math.round(num * 10000) / 10000
 }
+
