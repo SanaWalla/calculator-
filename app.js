@@ -63,6 +63,9 @@ operator.forEach(button => {
 })
 
 equals.addEventListener('click', function () {
+    if (previousOperand.innerText === '') {
+        return;
+    }
     calculate();
 
 })
@@ -82,6 +85,9 @@ function clearDisplay() {
 
 function appendNumber(number) {
     if (number === '.' && displayValue.innerText.includes('.')) return;
+    if (currentOperation === null && result !== '') {
+        clearDisplay();
+    }
     displayValue.innerText += number;
 }
 
